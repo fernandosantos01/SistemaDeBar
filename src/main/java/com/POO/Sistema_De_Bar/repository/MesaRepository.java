@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface MesaRepository extends JpaRepository<MesaModel, UUID> {
+public interface MesaRepository extends JpaRepository<MesaModel, Long> {
     Optional<MesaModel> findByNumero(Integer numero);
 }

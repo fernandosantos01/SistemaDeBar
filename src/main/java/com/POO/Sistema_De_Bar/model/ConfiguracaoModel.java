@@ -17,8 +17,8 @@ import java.util.UUID;
 @Setter
 public class ConfiguracaoModel {
     @Id
-    @GeneratedValue
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private BigDecimal valorCovert;
     private BigDecimal pecentualGorjetaComida;

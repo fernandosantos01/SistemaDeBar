@@ -17,13 +17,13 @@ import java.util.UUID;
 @Setter
 public class ProdutoModel {
     @Id
-    @GeneratedValue
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(nullable = false)
     private String nome;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String descricao;
 
     @Column(nullable = false)
@@ -33,5 +33,6 @@ public class ProdutoModel {
     @Column(nullable = false)
     private CategoriaProduto categoria;
 
+    @Column(nullable = false)
     private boolean disponivel = true;
 }

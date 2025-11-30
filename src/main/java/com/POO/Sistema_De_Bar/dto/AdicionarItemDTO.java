@@ -3,6 +3,6 @@ package com.POO.Sistema_De_Bar.dto;
 import java.util.UUID;
 
 public record AdicionarItemDTO(
-        UUID produtoId,
+        Long produtoId,
         Integer quantidade
 ) {}

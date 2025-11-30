@@ -33,9 +33,9 @@ public class DataLoader implements CommandLineRunner {
     private void carregarConfiguracao() {
         if (configuracaoRepository.count() == 0) {
             ConfiguracaoModel config = new ConfiguracaoModel();
-            config.setValorCovert(new BigDecimal("15.00")); // Couvert R$ 15,00
-            config.setPecentualGorjetaBebida(new BigDecimal("10.00")); // 10% na comida
-            config.setPecentualGorjetaComida(new BigDecimal("15.00")); // 15% na bebida (exemplo p/ testar diferença)
+            config.setValorCovert(new BigDecimal("15.00"));
+            config.setPecentualGorjetaBebida(new BigDecimal("10.00"));
+            config.setPecentualGorjetaComida(new BigDecimal("15.00"));
 
             configuracaoRepository.save(config);
             System.out.println("✅ Configuração inicial carregada.");
@@ -59,24 +59,28 @@ public class DataLoader implements CommandLineRunner {
         if (produtoRepository.count() == 0) {
             ProdutoModel p1 = new ProdutoModel();
             p1.setNome("Cerveja Artesanal");
+            p1.setDescricao("Cerveja Lager 600ml");
             p1.setPreco(new BigDecimal("22.00"));
             p1.setCategoria(CategoriaProduto.BEBIDA);
             p1.setDisponivel(true);
 
             ProdutoModel p2 = new ProdutoModel();
             p2.setNome("Refrigerante Cola");
+            p2.setDescricao("Lata 350ml gelada");
             p2.setPreco(new BigDecimal("8.00"));
             p2.setCategoria(CategoriaProduto.BEBIDA);
             p2.setDisponivel(true);
 
             ProdutoModel p3 = new ProdutoModel();
             p3.setNome("Porção de Fritas");
+            p3.setDescricao("500g de batata com cheddar e bacon");
             p3.setPreco(new BigDecimal("35.00"));
             p3.setCategoria(CategoriaProduto.COMIDA);
             p3.setDisponivel(true);
 
             ProdutoModel p4 = new ProdutoModel();
             p4.setNome("Hambúrguer da Casa");
+            p4.setDescricao("Pão brioche, 180g carne, queijo e salada");
             p4.setPreco(new BigDecimal("42.00"));
             p4.setCategoria(CategoriaProduto.COMIDA);
             p4.setDisponivel(true);

@@ -7,8 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 import java.util.UUID;
 
-public interface ItemComandaRepository extends JpaRepository<ItemComandaModel, UUID> {
-    List<ItemComandaModel> findByComandaId(UUID comandaId);
+public interface ItemComandaRepository extends JpaRepository<ItemComandaModel, Long> {
+    List<ItemComandaModel> findByComandaId(Long comandaId);
 
     @Query(value = """
             SELECT p.nome, SUM(i.quantidade) as total 

@@ -10,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/comandas")
@@ -29,13 +28,13 @@ public class ComandaController {
     }
 
     @PostMapping("/{id}/itens")
-    public ResponseEntity<ItemComandaModel> adicionarItem(@PathVariable UUID id, @RequestBody AdicionarItemDTO dados) {
+    public ResponseEntity<ItemComandaModel> adicionarItem(@PathVariable Long id, @RequestBody AdicionarItemDTO dados) {
         ItemComandaModel itemCriado = comandaService.adicionarItem(id, dados);
         return ResponseEntity.status(HttpStatus.CREATED).body(itemCriado);
     }
 
     @GetMapping("/{id}/resumo")
-    public ResponseEntity<ResumoContaDTO> verConta(@PathVariable UUID id) {
+    public ResponseEntity<ResumoContaDTO> verConta(@PathVariable Long id) {
         ResumoContaDTO resumo = comandaService.calcularContaResumo(id);
         return ResponseEntity.ok(resumo);
     }

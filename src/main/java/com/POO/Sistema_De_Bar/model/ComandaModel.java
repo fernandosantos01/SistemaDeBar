@@ -17,8 +17,8 @@ import java.util.UUID;
 @Setter
 public class ComandaModel {
     @Id
-    @GeneratedValue
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "mesa_id", nullable = false)
@@ -37,6 +37,5 @@ public class ComandaModel {
     @Column(nullable = false, updatable = false)
     private LocalDateTime dataAbertura = LocalDateTime.now();
 
-    @Column(nullable = false)
     private LocalDateTime dataFechamento;
 }

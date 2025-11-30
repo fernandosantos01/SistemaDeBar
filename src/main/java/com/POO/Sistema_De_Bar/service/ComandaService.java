@@ -29,7 +29,7 @@ public class ComandaService {
         this.produtoRepository = produtoRepository;
     }
 
-    public ResumoContaDTO calcularContaResumo(UUID comandaId) {
+    public ResumoContaDTO calcularContaResumo(Long comandaId) {
         ComandaModel comanda = comandaRepository.findById(comandaId)
                 .orElseThrow(() -> new RuntimeException("Comanda não encontrada"));
 
@@ -103,7 +103,7 @@ public class ComandaService {
         return comandaRepository.save(comanda);
     }
 
-    public ItemComandaModel adicionarItem(UUID comandaId, AdicionarItemDTO dados) {
+    public ItemComandaModel adicionarItem(Long comandaId, AdicionarItemDTO dados) {
         ComandaModel comanda = comandaRepository.findById(comandaId)
                 .orElseThrow(() -> new RuntimeException("Comanda não encontrada"));
 

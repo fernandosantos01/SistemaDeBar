@@ -3,11 +3,14 @@ package com.POO.Sistema_De_Bar.controller;
 import com.POO.Sistema_De_Bar.dto.*;
 import com.POO.Sistema_De_Bar.model.ComandaModel;
 import com.POO.Sistema_De_Bar.model.ItemComandaModel;
+import com.POO.Sistema_De_Bar.model.MesaModel;
 import com.POO.Sistema_De_Bar.model.PagamentoModel;
 import com.POO.Sistema_De_Bar.service.ComandaService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
@@ -68,5 +71,10 @@ public class ComandaController {
 
         ComandaModel comandaAtualizada = comandaService.atualizarCouvert(id, habilitado);
         return ResponseEntity.ok(comandaAtualizada);
+    }
+
+    @GetMapping("/mesas")
+    public ResponseEntity<List<MesaModel>> listarMesasAtivas() {
+        return ResponseEntity.ok(comandaService.listarMesasAtivas());
     }
 }

@@ -1,10 +1,12 @@
 package com.POO.Sistema_De_Bar.service;
 
 import com.POO.Sistema_De_Bar.dto.ConfiguracaoDTO;
+import com.POO.Sistema_De_Bar.dto.MesaDTO;
 import com.POO.Sistema_De_Bar.dto.ProdutoDTO;
-import com.POO.Sistema_De_Bar.model.ConfiguracaoModel;
-import com.POO.Sistema_De_Bar.model.ProdutoModel;
+import com.POO.Sistema_De_Bar.model.*;
+import com.POO.Sistema_De_Bar.repository.ComandaRepository;
 import com.POO.Sistema_De_Bar.repository.ConfiguracaoRepository;
+import com.POO.Sistema_De_Bar.repository.MesaRepository;
 import com.POO.Sistema_De_Bar.repository.ProdutoRepository;
 import org.springframework.stereotype.Service;
 
@@ -14,14 +16,39 @@ import java.util.List;
 public class AdminService {
     private final ProdutoRepository produtoRepository;
     private final ConfiguracaoRepository configuracaoRepository;
+    private final MesaRepository mesaRepository;
+    private final ComandaRepository comandaRepository;
 
-    public AdminService(ProdutoRepository produtoRepository, ConfiguracaoRepository configuracaoRepository) {
+    public AdminService(ProdutoRepository produtoRepository, ConfiguracaoRepository configuracaoRepository, MesaRepository mesaRepository, ComandaRepository comandaRepository) {
         this.produtoRepository = produtoRepository;
         this.configuracaoRepository = configuracaoRepository;
+        this.mesaRepository = mesaRepository;
+        this.comandaRepository = comandaRepository;
     }
 
     public List<ProdutoModel> listarTodosProdutos() {
         return produtoRepository.findAll();
+    }
+
+    public MesaModel cadastrarMesa(MesaDTO dados) {
+        if (mesaRepository.findByNumeroAndAtivaTrue(dados.numero()).isPresent()) {
+            throw new RuntimeException("Já existe uma mesa com o número " + dados.numero());
+        }
+
+        MesaModel mesa = new MesaModel();
+        mesa.setNumero(dados.numero());
+        mesa.setStatus(StatusMesa.LIVRE);
+        return mesaRepository.save(mesa);
+    }
+
+    public void deletarMesa(Long id) {
+        MesaModel mesa = mesaRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Mesa não encontrada"));
+        if (comandaRepository.findByMesaIdAndStatus(id, StatusComanda.ABERTA).isPresent()) {
+            throw new RuntimeException("Não é possível remover uma mesa que está ocupada.");
+        }
+        mesa.setAtiva(false);
+        mesaRepository.save(mesa);
     }
 
     public ProdutoModel cadastrarProduto(ProdutoDTO dados) {

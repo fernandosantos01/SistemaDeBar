@@ -25,4 +25,6 @@ public class MesaModel {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private StatusMesa status = StatusMesa.LIVRE;
+
+    private boolean ativa = true;
 }

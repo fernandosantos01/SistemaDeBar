@@ -1,8 +1,10 @@
 package com.POO.Sistema_De_Bar.controller;
 
 import com.POO.Sistema_De_Bar.dto.ConfiguracaoDTO;
+import com.POO.Sistema_De_Bar.dto.MesaDTO;
 import com.POO.Sistema_De_Bar.dto.ProdutoDTO;
 import com.POO.Sistema_De_Bar.model.ConfiguracaoModel;
+import com.POO.Sistema_De_Bar.model.MesaModel;
 import com.POO.Sistema_De_Bar.model.ProdutoModel;
 import com.POO.Sistema_De_Bar.service.AdminService;
 import org.springframework.http.HttpStatus;
@@ -41,5 +43,17 @@ public class AdminController {
     public ResponseEntity<ConfiguracaoModel> atualizarConfiguracao(@RequestBody ConfiguracaoDTO dados) {
         ConfiguracaoModel config = adminService.atualizarConfiguracao(dados);
         return ResponseEntity.ok(config);
+    }
+
+    @PostMapping("/mesas")
+    public ResponseEntity<MesaModel> cadastrarMesa(@RequestBody MesaDTO dados) {
+        MesaModel novaMesa = adminService.cadastrarMesa(dados);
+        return ResponseEntity.status(HttpStatus.CREATED).body(novaMesa);
+    }
+
+    @DeleteMapping("/mesas/{id}")
+    public ResponseEntity<Void> deletarMesa(@PathVariable Long id) {
+        adminService.deletarMesa(id);
+        return ResponseEntity.noContent().build();
     }
 }

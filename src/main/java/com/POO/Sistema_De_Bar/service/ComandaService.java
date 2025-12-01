@@ -98,7 +98,7 @@ public class ComandaService {
     }
 
     public ComandaModel abrirComanda(AbrirMesaDTO dados) {
-        MesaModel mesa = mesaRepository.findByNumero(dados.numeroMesa())
+        MesaModel mesa = mesaRepository.findByNumeroAndAtivaTrue(dados.numeroMesa())
                 .orElseThrow(() -> new RuntimeException("Mesa não encontrada!"));
 
         if (comandaRepository.findByMesaIdAndStatus(mesa.getId(), StatusComanda.ABERTA).isPresent()) {
@@ -216,5 +216,9 @@ public class ComandaService {
 
     public List<ProdutoModel> listarProdutosDisponiveis() {
         return produtoRepository.findByDisponivelTrue();
+    }
+
+    public List<MesaModel> listarMesasAtivas() {
+        return mesaRepository.findByAtivaTrue();
     }
 }

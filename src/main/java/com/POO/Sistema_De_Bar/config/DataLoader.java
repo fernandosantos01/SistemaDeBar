@@ -4,9 +4,11 @@ import com.POO.Sistema_De_Bar.model.*;
 import com.POO.Sistema_De_Bar.repository.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.List;
 
 @Configuration
 public class DataLoader implements CommandLineRunner {
@@ -14,13 +16,16 @@ public class DataLoader implements CommandLineRunner {
     private final MesaRepository mesaRepository;
     private final ProdutoRepository produtoRepository;
     private final ConfiguracaoRepository configuracaoRepository;
+    private final UsuarioRepository usuarioRepository;
 
     public DataLoader(MesaRepository mesaRepository,
                       ProdutoRepository produtoRepository,
-                      ConfiguracaoRepository configuracaoRepository) {
+                      ConfiguracaoRepository configuracaoRepository,
+                      UsuarioRepository usuarioRepository) {
         this.mesaRepository = mesaRepository;
         this.produtoRepository = produtoRepository;
         this.configuracaoRepository = configuracaoRepository;
+        this.usuarioRepository = usuarioRepository;
     }
 
     @Override
@@ -28,6 +33,7 @@ public class DataLoader implements CommandLineRunner {
         carregarConfiguracao();
         carregarMesas();
         carregarProdutos();
+        criarUsuariosPadrao();
     }
 
     private void carregarConfiguracao() {
@@ -87,6 +93,25 @@ public class DataLoader implements CommandLineRunner {
 
             produtoRepository.saveAll(Arrays.asList(p1, p2, p3, p4));
             System.out.println("✅ Cardápio inicial cadastrado.");
+        }
+    }
+
+    private void criarUsuariosPadrao() {
+        if (usuarioRepository.count() == 0) {
+            String senhaCriptografada = new BCryptPasswordEncoder().encode("123456");
+
+            Usuario admin = new Usuario();
+            admin.setLogin("admin");
+            admin.setSenha(senhaCriptografada);
+            admin.setRole(UserRole.ADMIN);
+
+            Usuario garcom = new Usuario();
+            garcom.setLogin("garcom");
+            garcom.setSenha(senhaCriptografada);
+            garcom.setRole(UserRole.GARCOM);
+
+            usuarioRepository.saveAll(List.of(admin, garcom));
+            System.out.println("✅ Usuários padrão criados (admin/123456 e garcom/123456).");
         }
     }
 }

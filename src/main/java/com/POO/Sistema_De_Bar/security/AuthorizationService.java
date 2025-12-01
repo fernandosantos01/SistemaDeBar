@@ -1,4 +1,4 @@
-package com.POO.Sistema_De_Bar.service;
+package com.POO.Sistema_De_Bar.security;
 
 import com.POO.Sistema_De_Bar.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;

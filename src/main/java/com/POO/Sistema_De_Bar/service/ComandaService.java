@@ -93,7 +93,8 @@ public class ComandaService {
                 totalPago,
                 saldoRestante,
                 comanda.getStatus().name(),
-                comanda.isCouvertHabilitado()
+                comanda.isCouvertHabilitado(),
+                comanda.getQtdePessoas()
         );
     }
 

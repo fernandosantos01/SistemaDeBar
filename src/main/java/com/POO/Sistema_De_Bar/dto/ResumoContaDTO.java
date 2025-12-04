@@ -15,6 +15,8 @@ public record ResumoContaDTO(
         BigDecimal totalPago,
         BigDecimal saldoRestante,
         String status,
-        boolean couvertHabilitado
+        boolean couvertHabilitado,
+        Integer qtdPessoasMesa
+
 ) {
 }
